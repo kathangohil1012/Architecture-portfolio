@@ -31,8 +31,6 @@
     </section>
 
     <!-- Portfolio Grid Section -->
-    <section id="portfolio" class="portfolio-container">
-        <h3>Selected Works</h3>
       <section id="portfolio" class="portfolio-container">
         <h3>Selected Works</h3>
         <div class="grid" id="portfolio-grid">
@@ -88,26 +86,32 @@
       
       if (!Array.isArray(files)) return;
 
-      for (const file of files) {
-        if (file.name.endsWith('.md')) {
-          const contentRes = await fetch(file.download_url);
-          const text = await contentRes.text();
-          
-          // Simple parsing of the project file data
-          const title = text.match(/title:\s*"(.*)"/)?.[1] || "Untitled Project";
-          const details = text.match(/details:\s*"(.*)"/)?.[1] || "";
-          const thumbnail = text.match(/thumbnail:\s*"(.*)"/)?.[1] || "";
+      // REPLACE THE INSIDE OF YOUR FOR LOOP WITH THIS:
+for (const file of files) {
+  if (file.name.endsWith('.md')) {
+    const contentRes = await fetch(file.download_url);
+    const text = await contentRes.text();
+    
+    // Better parser that handles text with or without quotes perfectly
+    const titleMatch = text.match(/^title:\s*(["']?)(.*?)\1\s*$/m);
+    const detailsMatch = text.match(/^details:\s*(["']?)(.*?)\1\s*$/m);
+    const thumbnailMatch = text.match(/^thumbnail:\s*(["']?)(.*?)\1\s*$/m);
 
-          // Create the HTML structure for each project card dynamically
-          const card = document.createElement('div');
-          card.className = 'project-card';
-          card.innerHTML = `
-            <img src="${thumbnail}" alt="${title}">
-            <h4>${title}</h4>
-            <p>${details}</p>
-          `;
-          grid.appendChild(card);
-        }
+    const title = titleMatch ? titleMatch[2] : "Untitled Project";
+    const details = detailsMatch ? detailsMatch[2] : "";
+    const thumbnail = thumbnailMatch ? thumbnailMatch[2] : "";
+
+    // Create the HTML structure for each project card dynamically
+    const card = document.createElement('div');
+    card.className = 'project-card';
+    card.innerHTML = `
+      <img src="${thumbnail}" alt="${title}">
+      <h4>${title}</h4>
+      <p>${details}</p>
+    `;
+    grid.appendChild(card);
+  }
+}
       }
     } catch (error) {
       console.error("Error loading portfolio items:", error);
