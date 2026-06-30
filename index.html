@@ -92,14 +92,21 @@ for (const file of files) {
     const contentRes = await fetch(file.download_url);
     const text = await contentRes.text();
     
-    // Better parser that handles text with or without quotes perfectly
-    const titleMatch = text.match(/^title:\s*(["']?)(.*?)\1\s*$/m);
-    const detailsMatch = text.match(/^details:\s*(["']?)(.*?)\1\s*$/m);
-    const thumbnailMatch = text.match(/^thumbnail:\s*(["']?)(.*?)\1\s*$/m);
+    // Fallback clever extraction logic for bunched up files
+    let title = "Untitled Project";
+    let details = "";
+    let thumbnail = "";
 
-    const title = titleMatch ? titleMatch[2] : "Untitled Project";
-    const details = detailsMatch ? detailsMatch[2] : "";
-    const thumbnail = thumbnailMatch ? thumbnailMatch[2] : "";
+    if (text.includes("title") && text.includes("date")) {
+      title = text.split("title")[1].split("date")[0].replace(/['":]/g, '').trim();
+    }
+    if (text.includes("details") && text.includes("thumbnail")) {
+      details = text.split("details")[1].split("thumbnail")[0].replace(/['":]/g, '').trim();
+    }
+    if (text.includes("thumbnail")) {
+      // Grabs the image path up until the first line break or description space
+      thumbnail = text.split("thumbnail")[1].split("\n")[0].replace(/['":]/g, '').trim();
+    }
 
     // Create the HTML structure for each project card dynamically
     const card = document.createElement('div');
