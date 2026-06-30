@@ -1,0 +1,20 @@
+backend:
+  name: git-gateway
+  branch: main # or master, depending on your default GitHub branch
+
+media_folder: "images/uploads" # Where images will be saved in your project
+public_folder: "/images/uploads"
+
+collections:
+  - name: "projects"
+    label: "Architectural Projects"
+    folder: "_projects" # A new folder where project text files will automatically save
+    create: true # Allows client to add new projects
+    slug: "{{slug}}"
+    fields:
+      - { label: "Project Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Category", name: "category", widget: "select", options: ["Residential", "Commercial", "Interior", "Renovation"] }
+      - { label: "Project Year & Location", name: "details", widget: "string", placeholder: "e.g., California / 2026" }
+      - { label: "Featured Hero Image", name: "thumbnail", widget: "image" }
+      - { label: "Project Description", name: "body", widget: "markdown" }
