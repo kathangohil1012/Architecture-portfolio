@@ -83,7 +83,7 @@
     try {
       // Connects to GitHub's backend API to read your published projects folder
       // REPLACE 'your-github-username' and 'your-repo-name' with your actual details!
-      const response = await fetch('https://api.github.com/repos/your-github-kathangohil1012/Architechture-portfolio/contents/_projects');
+     const response = await fetch('https://api.github.com/repos/kathangohil1012/Architecture-portfolio/contents/_projects');
       const files = await response.json();
       
       if (!Array.isArray(files)) return;
