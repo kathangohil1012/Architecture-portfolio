@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Architect Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Clean, architectural font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <header class="navbar">
+        <div class="logo">STUDIO_ARCH</div>
+        <nav>
+            <a href="#portfolio">Portfolio</a>
+            <a href="#contact">Inquiry</a>
+        </nav>
+    </header>
+
+    <!-- Main Hero Project -->
+    <section class="hero">
+        <div class="hero-image-wrapper">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c" alt="Featured Project">
+        </div>
+        <div class="hero-details">
+            <h2>The Concrete Pavilion</h2>
+            <p>Residential / 2026</p>
+        </div>
+    </section>
+
+    <!-- Portfolio Grid Section -->
+    <section id="portfolio" class="portfolio-container">
+        <h3>Selected Works</h3>
+        <div class="grid">
+            <!-- Project 1 -->
+            <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750" alt="Project 1">
+                <h4>Glasshouse Residence</h4>
+                <p>Location / Year</p>
+            </div>
+            <!-- Project 2 -->
+            <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c" alt="Project 2">
+                <h4>Brutalist Minimal Complex</h4>
+                <p>Location / Year</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact / Inquiry Form -->
+    <section id="contact" class="contact-section">
+        <h3>Project Inquiry</h3>
+        <!-- data-netlify="true" tells Netlify to automatically capture form submissions and email them to you for free -->
+        <form name="inquiry" method="POST" data-netlify="true">
+            <div class="form-group">
+                <input type="text" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <textarea name="message" rows="5" placeholder="Tell us about your project..." required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Send Inquiry</button>
+        </form>
+    </section>
+
+    <!-- Minimal Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Studio Arch. All rights reserved.</p>
+    </footer>
+<script>
+  if (window.netlifyIdentity) {
+    window.netlifyIdentity.on("init", user => {
+      if (!user) {
+        window.netlifyIdentity.on("login", () => {
+          document.location.href = "/admin/";
+        });
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
